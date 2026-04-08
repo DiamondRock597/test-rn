@@ -66,15 +66,14 @@ export const styles = StyleSheet.create({
     marginBottom: 36
   },
   illustration: {
-    width: '100%',
+    width: '95%',
     height: undefined,
     aspectRatio: 1,
     maxWidth: 360
   },
   imageWrapper: {
     width: '100%',
-    alignItems: 'center',
-    marginBottom: 24
+    alignItems: 'center'
   },
   paginationRow: {
     width: '100%',

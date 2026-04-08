@@ -1,7 +1,7 @@
 import React from 'react';
 import { Image, Pressable, ScrollView, Text, View } from 'react-native';
 
-import { SafeAreaView } from 'react-native-safe-area-context';
+import { useSafeAreaInsets } from 'react-native-safe-area-context';
 
 import { PaginationDot } from './components/PaginationDot';
 import { styles } from './styles';
@@ -9,9 +9,10 @@ import { useOnboarding } from './useOnboarding';
 
 export const OnboardingScreen = () => {
   const { activeIndex, pages, handleFinishOnboarding, handleNext } = useOnboarding();
+  const { top } = useSafeAreaInsets();
 
   return (
-    <SafeAreaView style={styles.safeArea}>
+    <View style={[styles.safeArea, { paddingTop: top }]}>
       <ScrollView contentContainerStyle={styles.container} showsVerticalScrollIndicator={false}>
         <View style={styles.topBar}>
           <Pressable style={styles.skipButton} onPress={handleFinishOnboarding}>
@@ -28,8 +29,10 @@ export const OnboardingScreen = () => {
         </View>
 
         <View style={styles.card}>
-          <Text style={styles.title}>You ought to know where your money goes</Text>
-          <Text style={styles.subtitle}>
+          <Text numberOfLines={2} adjustsFontSizeToFit style={styles.title}>
+            You ought to know where your money goes
+          </Text>
+          <Text adjustsFontSizeToFit style={styles.subtitle}>
             Get an overview of how you are performing and motivate yourself to achieve even more.
           </Text>
 
@@ -44,6 +47,6 @@ export const OnboardingScreen = () => {
           </Pressable>
         </View>
       </ScrollView>
-    </SafeAreaView>
+    </View>
   );
 };

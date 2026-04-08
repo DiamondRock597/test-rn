@@ -23,16 +23,26 @@ export const RootNavigator = () => {
       if (isOnboardingShowed) {
         setInitialRouteName('SignUp');
       }
-    })().catch(() => {
-      setInitialRouteName('Onboarding');
-    });
+    })()
+      .catch(error => {
+        console.error('Error occurred while fetching onboarding status:', error);
+      })
+      .finally(() => {
+        setInitialRouteName('Onboarding');
+      });
   }, []);
 
   const screenOptions = useMemo(() => ({ headerShown: false }), []);
 
   if (!initialRouteName) {
     return (
-      <View style={{ flex: 1, justifyContent: 'center', alignItems: 'center' }}>
+      <View
+        style={{
+          flex: 1,
+          justifyContent: 'center',
+          alignItems: 'center',
+          backgroundColor: 'white'
+        }}>
         <ActivityIndicator />
       </View>
     );

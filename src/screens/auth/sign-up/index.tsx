@@ -83,9 +83,7 @@ export const SignUpScreen = () => {
 
         <View style={styles.field}>
           <View style={styles.termsRow}>
-            <Pressable style={styles.checkbox} onPress={() => {}}>
-              <Text style={styles.checkboxIcon}>{''}</Text>
-            </Pressable>
+            <Pressable style={styles.checkbox} onPress={() => {}} />
             <Text style={styles.termsText}>
               By signing up, you agree to the <Text style={styles.link}>Terms of Service</Text> and{' '}
               <Text style={styles.link}>Privacy Policy</Text>
