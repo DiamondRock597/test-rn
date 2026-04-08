@@ -1,50 +1,86 @@
-import React, { memo } from 'react';
-import { StyleSheet, Text, TextInput, TextInputProps, ViewStyle } from 'react-native';
+import React, { forwardRef, memo } from 'react';
+import {
+  ActivityIndicator,
+  StyleProp,
+  StyleSheet,
+  Text,
+  TextInput,
+  TextInputProps,
+  TextStyle,
+  View,
+  ViewStyle
+} from 'react-native';
 
 import { Colors } from '@constants/colors';
 import { FontFamily } from '@constants/fonts';
 
 interface InputProps extends Omit<TextInputProps, 'style'> {
-  style?: ViewStyle;
+  containerStyle?: StyleProp<ViewStyle>;
+  style?: StyleProp<TextStyle>;
   label?: string;
   error?: string;
+  loading?: boolean;
+  rightElement?: React.ReactNode;
 }
 
-export const Input = memo(({ style, label, error, ...props }) => {
-  return (
-    <>
-      {label && <Text style={styles.label}>{label}</Text>}
-      <TextInput style={[styles.input, error && styles.error, style]} {...props} />
-      {error && <Text style={styles.errorText}>{error}</Text>}
-    </>
-  );
-});
+const InputInner = forwardRef<TextInput, InputProps>(
+  ({ containerStyle, style, label, error, loading, rightElement, ...props }, ref) => (
+    <View style={[styles.container, containerStyle]}>
+      {label ? <Text style={styles.label}>{label}</Text> : null}
+      <View style={[styles.inputWrapper, error && styles.errorWrapper]}>
+        <TextInput ref={ref} style={[styles.input, style]} {...props} />
+        {rightElement ? <View style={styles.rightElement}>{rightElement}</View> : null}
+        {loading ? <ActivityIndicator color={Colors.Gray700} style={styles.loader} /> : null}
+      </View>
+      {error ? <Text style={styles.errorText}>{error}</Text> : null}
+    </View>
+  )
+);
+
+export const Input = memo(InputInner);
 
 const styles = StyleSheet.create({
-  input: {
+  container: {
+    width: '100%'
+  },
+  inputWrapper: {
+    flexDirection: 'row',
+    alignItems: 'center',
     borderWidth: 1,
     borderColor: Colors.Border,
-    paddingVertical: 12,
+    borderRadius: 18,
+    backgroundColor: Colors.White,
     paddingHorizontal: 16,
-    borderRadius: 8,
-    fontSize: 16,
-    backgroundColor: Colors.Background,
-    fontFamily: FontFamily.Regular
+    minHeight: 56
   },
-  error: {
+  errorWrapper: {
     borderColor: Colors.Error
   },
-  label: {
+  input: {
+    flex: 1,
     fontSize: 16,
-    fontWeight: '600',
-    marginBottom: 8,
     color: Colors.Text,
+    paddingVertical: 16,
+    fontFamily: FontFamily.Regular
+  },
+  rightElement: {
+    marginLeft: 10
+  },
+  loader: {
+    marginLeft: 10
+  },
+  label: {
+    fontSize: 13,
+    lineHeight: 20,
+    color: Colors.GrayText,
+    marginBottom: 10,
     fontFamily: FontFamily.Medium
   },
   errorText: {
-    fontSize: 14,
+    marginTop: 6,
     color: Colors.Error,
-    marginTop: 4,
+    fontSize: 12,
+    lineHeight: 16,
     fontFamily: FontFamily.Regular
   }
 });

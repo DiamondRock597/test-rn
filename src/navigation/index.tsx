@@ -1,4 +1,5 @@
 import React, { useEffect, useMemo } from 'react';
+import { ActivityIndicator, View } from 'react-native';
 
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
 
@@ -11,8 +12,9 @@ import { AppStorage } from '../services/storage';
 const Stack = createNativeStackNavigator<RootStackParamList>();
 
 export const RootNavigator = () => {
-  const [initialRouteName, setInitialRouteName] =
-    React.useState<keyof RootStackParamList>('Onboarding');
+  const [initialRouteName, setInitialRouteName] = React.useState<keyof RootStackParamList | null>(
+    null
+  );
 
   useEffect(() => {
     (async () => {
@@ -21,10 +23,20 @@ export const RootNavigator = () => {
       if (isOnboardingShowed) {
         setInitialRouteName('SignUp');
       }
-    })();
+    })().catch(() => {
+      setInitialRouteName('Onboarding');
+    });
   }, []);
 
   const screenOptions = useMemo(() => ({ headerShown: false }), []);
+
+  if (!initialRouteName) {
+    return (
+      <View style={{ flex: 1, justifyContent: 'center', alignItems: 'center' }}>
+        <ActivityIndicator />
+      </View>
+    );
+  }
 
   return (
     <Stack.Navigator id="root" initialRouteName={initialRouteName} screenOptions={screenOptions}>
