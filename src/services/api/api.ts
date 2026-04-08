@@ -18,8 +18,8 @@ export class API {
     headers?: Record<string, any>
   ): AxiosPromise<T> => axiosInstance.post(url, data, { headers });
 
-  static get = <T = any>(url: string, params?: Record<string, any>): AxiosPromise<T> =>
-    axiosInstance.get(url, { params });
+  static get = <T = any>(url: string, config?: Record<string, any>): AxiosPromise<T> =>
+    axiosInstance.get(url, config);
 
   static put = <T = any>(
     url: string,

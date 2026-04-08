@@ -1,18 +1,14 @@
 import React from 'react';
-import { Pressable, SafeAreaView, ScrollView, Text, View } from 'react-native';
+import { Image, Pressable, ScrollView, Text, View } from 'react-native';
 
-import { useNavigation } from '@react-navigation/native';
+import { SafeAreaView } from 'react-native-safe-area-context';
 
+import { PaginationDot } from './components/PaginationDot';
 import { styles } from './styles';
-import { AppStorage } from '../../services/storage';
+import { useOnboarding } from './useOnboarding';
 
 export const OnboardingScreen = () => {
-  const navigation = useNavigation();
-
-  const handleFinishOnboarding = async () => {
-    await AppStorage.setOnboardingShowed(true);
-    navigation.navigate('SignUp');
-  };
+  const { activeIndex, pages, handleFinishOnboarding, handleNext } = useOnboarding();
 
   return (
     <SafeAreaView style={styles.safeArea}>
@@ -23,6 +19,14 @@ export const OnboardingScreen = () => {
           </Pressable>
         </View>
 
+        <View style={styles.imageWrapper}>
+          <Image
+            source={require('../../assets/onboarding.png')}
+            style={styles.illustration}
+            resizeMode="contain"
+          />
+        </View>
+
         <View style={styles.card}>
           <Text style={styles.title}>You ought to know where your money goes</Text>
           <Text style={styles.subtitle}>
@@ -30,16 +34,16 @@ export const OnboardingScreen = () => {
           </Text>
 
           <View style={styles.paginationRow}>
-            <View style={styles.paginationDot} />
-            <View style={[styles.paginationDot, styles.paginationDotActive]} />
-            <View style={styles.paginationDot} />
+            {pages.map(page => (
+              <PaginationDot key={page} index={page} activeIndex={activeIndex} />
+            ))}
           </View>
 
-          <Pressable style={styles.actionButton} onPress={handleFinishOnboarding}>
+          <Pressable style={styles.actionButton} onPress={handleNext}>
             <Text style={styles.actionButtonText}>Next</Text>
           </Pressable>
         </View>
       </ScrollView>
     </SafeAreaView>
   );
-}
+};

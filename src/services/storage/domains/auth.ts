@@ -19,7 +19,7 @@ export class AuthStorage {
       AuthStorage.token = token;
     }
 
-    return token ? token : null;
+    return token ?? null;
   }
 
   static async removeTokens() {

@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react';
+import React, { useEffect, useMemo } from 'react';
 
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
 
@@ -24,11 +24,10 @@ export const RootNavigator = () => {
     })();
   }, []);
 
+  const screenOptions = useMemo(() => ({ headerShown: false }), []);
+
   return (
-    <Stack.Navigator
-      id="root"
-      initialRouteName={initialRouteName}
-      screenOptions={{ headerShown: false }}>
+    <Stack.Navigator id="root" initialRouteName={initialRouteName} screenOptions={screenOptions}>
       <Stack.Screen name="Onboarding" component={OnboardingScreen} />
       <Stack.Screen name="SignUp" component={SignUpScreen} />
       <Stack.Screen name="Profile" component={ProfileScreen} />

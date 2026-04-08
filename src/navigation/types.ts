@@ -1,7 +1,9 @@
+import { BasicAuthCredentials } from '../services/api/models/auth';
+
 export type RootStackParamList = {
   Onboarding: undefined;
   SignUp: undefined;
-  Profile: undefined;
+  Profile: { basicAuthCredentials: BasicAuthCredentials };
 };
 
 declare global {

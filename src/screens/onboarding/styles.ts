@@ -1,9 +1,12 @@
 import { StyleSheet } from 'react-native';
 
+import { Colors } from '@constants/colors';
+import { FontFamily } from '@constants/fonts';
+
 export const styles = StyleSheet.create({
   safeArea: {
     flex: 1,
-    backgroundColor: '#F4F7FF'
+    backgroundColor: Colors.LightBlue
   },
   container: {
     flexGrow: 1,
@@ -22,7 +25,7 @@ export const styles = StyleSheet.create({
     paddingHorizontal: 16,
     paddingVertical: 10,
     borderRadius: 999,
-    backgroundColor: '#FFFFFF',
+    backgroundColor: Colors.White,
     shadowColor: '#000000',
     shadowOffset: { width: 0, height: 8 },
     shadowOpacity: 0.08,
@@ -32,12 +35,12 @@ export const styles = StyleSheet.create({
   skipText: {
     fontSize: 15,
     lineHeight: 22,
-    color: '#3B3BFF',
-    fontWeight: '700'
+    color: Colors.DarkBlue,
+    fontFamily: FontFamily.Bold
   },
   card: {
     width: '100%',
-    backgroundColor: '#FFFFFF',
+    backgroundColor: Colors.White,
     borderRadius: 36,
     padding: 28,
     alignItems: 'center',
@@ -50,17 +53,28 @@ export const styles = StyleSheet.create({
   title: {
     fontSize: 28,
     lineHeight: 36,
-    fontWeight: '700',
-    color: '#24167A',
+    fontFamily: FontFamily.Bold,
+    color: Colors.DarkText,
     textAlign: 'center',
     marginBottom: 16
   },
   subtitle: {
     fontSize: 16,
     lineHeight: 24,
-    color: '#667085',
+    color: Colors.GrayText,
     textAlign: 'center',
     marginBottom: 36
+  },
+  illustration: {
+    width: '100%',
+    height: undefined,
+    aspectRatio: 1,
+    maxWidth: 360
+  },
+  imageWrapper: {
+    width: '100%',
+    alignItems: 'center',
+    marginBottom: 24
   },
   paginationRow: {
     width: '100%',
@@ -72,30 +86,30 @@ export const styles = StyleSheet.create({
     width: 10,
     height: 10,
     borderRadius: 5,
-    backgroundColor: '#CBD5E1',
-    marginHorizontal: 4
+    backgroundColor: Colors.LightGray,
+    marginHorizontal: 6
   },
   paginationDotActive: {
     width: 20,
-    backgroundColor: '#3B3BFF'
+    backgroundColor: Colors.DarkBlue
   },
   actionButton: {
     width: '100%',
     height: 56,
     borderRadius: 28,
-    backgroundColor: '#3B3BFF',
+    backgroundColor: Colors.DarkBlue,
     justifyContent: 'center',
     alignItems: 'center',
-    shadowColor: '#3B3BFF',
+    shadowColor: Colors.DarkBlue,
     shadowOffset: { width: 0, height: 12 },
     shadowOpacity: 0.18,
     shadowRadius: 24,
     elevation: 4
   },
   actionButtonText: {
-    color: '#FFFFFF',
+    color: Colors.White,
     fontSize: 16,
     lineHeight: 22,
-    fontWeight: '700'
+    fontFamily: FontFamily.Bold
   }
 });
